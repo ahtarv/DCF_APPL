@@ -12,7 +12,7 @@ FCF = Net Income + D&A - CapEx
 (We skip NWC change - yfinance data is unreliable for it)
 """
 
-import yfinance as yfinance
+import yfinance as yf
 
 def fetch_financials(ticker: str = "AAPL") -> dict:
     stock = yf.Ticker(ticker) #so this is using the ticker AAPl, used in stocks
@@ -24,7 +24,7 @@ def fetch_financials(ticker: str = "AAPL") -> dict:
     def get_row(df, *candidates):
         for name in candidates:
             if name in df.columns:
-                return df[name].fillna(0).toList()
+                return df[name].fillna(0).to_list()
         return [0] * len(df)
 
     revenue = get_row(inc, "Total Revenue")
@@ -37,7 +37,7 @@ def fetch_financials(ticker: str = "AAPL") -> dict:
     capex = [-x for x in capex_raw]
 
     debt_row = get_row(bs, "Total Debt", "Long term Debt")
-    cash_row = get_row(bs, "Cash and Cash Equivalents", "Cash")
+    cash_row = get_row(bs, "Cash And Cash Equivalents", "Cash And Short Term Investments", "Cash Cash Equivalents And Short Term Investments", "Cash")
     total_debt = debt_row[-1] if debt_row else 0
     cash = cash_row[-1] if cash_row else 0
 
