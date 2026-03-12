@@ -1,3 +1,9 @@
+#A company is funded by either debt or equity. 
+#WACC is the blended cost of both 
+#HIgher WACC = Higher risk = Lower valuation
+#Lower WACC = Lower risk = Higher valuation
+
+
 """
 wacc.py
 -------
